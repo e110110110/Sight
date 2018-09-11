@@ -18,18 +18,14 @@ class ImageTableViewCell: UITableViewCell {
     // MARK: Injections
     var presenter: ImageTableViewCellPresenterInput!
     var configurator: ImageCellAssamblyProtocol!
-
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        configurator = ImageCellAssambly()
-        configurator.configure(viewController: self)
-        presenter.viewDidLoad()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
+        print("sdfsdfs")
         // Configure the view for the selected state
     }
     

@@ -19,8 +19,9 @@ extension ImageViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellImageIdentifier,
-                                                 for: indexPath) as! ImageTableViewCell
+        let cell = ImageCellAssambly().configure(tableView: tableView,
+                                                 indexPath: indexPath,
+                                                 image: Image())
         
         return cell
     }

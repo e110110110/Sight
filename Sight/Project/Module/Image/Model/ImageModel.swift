@@ -11,6 +11,7 @@ import UIKit
 class ImageModel: NSObject, ImageModelProtocol {
 
     private var images: [Image] = []
+//    private var processingImages: [:] = []
     private var networkService: NetworkService
     
     weak var delegate: ImageModelDelegate?
@@ -30,6 +31,15 @@ class ImageModel: NSObject, ImageModelProtocol {
         networkService.startDownload(download)
         networkService.delegate = self
     }
+    
+    func saveImage(_ image: UIImage) {
+        let random = Int(arc4random_uniform(30) + 5)
+        DispatchQueue.delay(.seconds(random)) {
+            let coreImage: Image = CoreDataService.getEntity()
+            coreImage.data = UIImagePNGRepresentation(image)
+            CoreDataService.saveContext()
+        }
+    }
 }
 
 protocol ImageModelDelegate: class {
@@ -39,6 +49,7 @@ protocol ImageModelDelegate: class {
 
 extension ImageModel: NetworkServiceDelegate {
     func image(_ image: UIImage) {
+        self.saveImage(image)
         delegate?.image(image)
     }
 }
@@ -46,5 +57,13 @@ extension ImageModel: NetworkServiceDelegate {
 extension ImageModel: DownloadDelegate {
     func downloadProgressUpdate(for progress: Float) {
         delegate?.downloadProgressUpdate(for: progress)
+    }
+}
+
+extension DispatchQueue {
+    static func delay(_ delay: DispatchTimeInterval,
+                      closure: @escaping () -> ()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay,
+                                      execute: closure)
     }
 }

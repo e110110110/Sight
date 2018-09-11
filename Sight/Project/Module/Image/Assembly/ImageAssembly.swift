@@ -19,16 +19,18 @@ class ImageAssembly: ImageAssemblyProtocol {
         let storyboard = UIStoryboard(name: nameStoryboard, bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: nameController) as! ImageViewController
         
-    
-        let router = ImageRouter(viewController: controller )
+        let router = ImageRouter(viewController: controller)
+        
+        let model = ImageModel()
         
         let presenter = ImagePresenter(
             output: controller,
-            router: router
+            router: router,
+            model: model
         )
         
         controller.presenter = presenter
-        
+
         return controller
     }
 }

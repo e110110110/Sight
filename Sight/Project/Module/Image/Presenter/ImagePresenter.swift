@@ -14,15 +14,16 @@ class ImagePresenter:  ImagePresenterProtocol {
     //MARK: Injections
     private weak var viewController: ImageViewControllerProtocol!
     var router: ImageRouterProtocol
-    private var model: ImageModel
+    private var model: ImageModelProtocol
     
     //MARK: LifeCycle
     init(output: ImageViewControllerProtocol,
-         router: ImageRouterProtocol) {
+         router: ImageRouterProtocol,
+         model:  ImageModelProtocol) {
         
         self.viewController = output
         self.router = router
-        self.model = ImageModel()
+        self.model = model
     }
     
     //MARK: ImagePresenterInput

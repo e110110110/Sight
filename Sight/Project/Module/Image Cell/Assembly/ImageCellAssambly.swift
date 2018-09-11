@@ -9,17 +9,29 @@
 import UIKit
 
 class ImageCellAssambly: ImageCellAssamblyProtocol {
-
-    //MARK: ImageCellConfigurable
-    func configure(viewController: ImageTableViewCell) {
+    private let cellImageIdentifier = "image"
     
-        let router = ImageCellRouter(viewController: viewController)
+    //MARK: ImageCellConfigurable
+    func configure(tableView: UITableView,
+                   indexPath: IndexPath,
+                   image: Image) -> ImageTableViewCell {
+        
+        //        a - нужно время которое запускает преобразование
+        //        б - нужно передавать картинку, чтобы после истечении срока
+        //        показывать её
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellImageIdentifier,
+                                                 for: indexPath) as! ImageTableViewCell
+    
+        let router = ImageCellRouter(viewController: cell)
         
         let presenter = ImageTableViewCellPresenter(
-            output: viewController,
+            output: cell,
             router: router
         )
         
-        viewController.presenter = presenter
+        cell.presenter = presenter
+        
+        return cell
     }
 }

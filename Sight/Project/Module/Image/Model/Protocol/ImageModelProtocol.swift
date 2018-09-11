@@ -10,6 +10,8 @@ import Foundation
 
 protocol ImageModelProtocol {
     
+    var delegate: ImageModelDelegate? { get set }
+    
     func startLoad(url: String)
     
 }

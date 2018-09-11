@@ -7,7 +7,10 @@
 //
 
 import Foundation
+import UIKit
 
 protocol ImageCellAssamblyProtocol {
-    func configure(viewController: ImageTableViewCell)
+    func configure(tableView: UITableView,
+                   indexPath: IndexPath,
+                   image: Image) -> ImageTableViewCell
 }
